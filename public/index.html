@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="حاسبة ربح الأغنام السنوية">
+  <meta name="description" content="حاسبة ربح إنتاج الأغنام والمواليد السنوية">
   <meta name="theme-color" content="#788b43">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -15,9 +15,9 @@
     <header class="hero">
       <div class="brand-mark">🐑</div>
       <div>
-        <p class="eyebrow">SHEAP CALCULATOR</p>
-        <h1>حاسبة ربح الأغنام</h1>
-        <p class="subtitle">احسب تكلفة القطيع، المبيعات، وصافي الربح السنوي بسهولة.</p>
+        <p class="eyebrow">SHEEP CALCULATOR</p>
+        <h1>حاسبة ربح إنتاج الأغنام</h1>
+        <p class="subtitle">احسب ربح المواليد السنوي بعد خصم مصاريف تربية القطيع فقط.</p>
       </div>
     </header>
 
@@ -25,27 +25,27 @@
       <form id="calculatorForm" class="card form-card">
         <div class="section-title">
           <span>01</span>
-          <div><h2>بيانات القطيع</h2><p>أدخل أعداد وأسعار الشراء والبيع.</p></div>
+          <div><h2>بيانات القطيع والإنتاج</h2><p>سعر شراء القطيع السابق لا يدخل في حساب الربح السنوي.</p></div>
         </div>
 
         <div class="fields two">
-          <label>عدد الرؤوس
-            <input id="sheepCount" type="number" min="1" step="1" value="28" required>
+          <label>عدد الأمهات / الرؤوس المنتجة
+            <input id="sheepCount" type="number" min="1" step="1" value="10" required>
           </label>
-          <label>سعر شراء الرأس (₪)
-            <input id="purchasePrice" type="number" min="0" step="0.01" value="1200" required>
+          <label>متوسط المواليد لكل رأس سنويًا
+            <input id="birthsPerHead" type="number" min="0" step="0.1" value="1" required>
           </label>
-          <label>سعر بيع الرأس (₪)
+          <label>سعر بيع المولود (₪)
             <input id="salePrice" type="number" min="0" step="0.01" value="1500" required>
           </label>
-          <label>نسبة النفوق (%)
+          <label>نسبة نفوق المواليد (%)
             <input id="mortality" type="number" min="0" max="100" step="0.1" value="0">
           </label>
         </div>
 
         <div class="section-title compact">
           <span>02</span>
-          <div><h2>المصاريف السنوية للرأس</h2><p>هذه المصاريف تُحسب لكل رأس سنويًا.</p></div>
+          <div><h2>مصاريف التربية السنوية</h2><p>المصاريف تُحسب لكل رأس من القطيع المنتج خلال سنة.</p></div>
         </div>
 
         <div class="fields two">
@@ -82,32 +82,34 @@
         </div>
 
         <div class="profit-box">
-          <span>صافي الربح</span>
+          <span>صافي ربح المواليد</span>
           <strong id="netProfit">₪ 0</strong>
-          <small id="profitNote">بعد خصم تكلفة الشراء والمصاريف السنوية</small>
+          <small id="profitNote">المبيعات − مصاريف تربية القطيع</small>
         </div>
 
         <div class="stats">
-          <div><span>إجمالي الاستثمار</span><strong id="investment">₪ 0</strong></div>
-          <div><span>إجمالي المصاريف السنوية</span><strong id="annualExpenses">₪ 0</strong></div>
-          <div><span>إجمالي المبيعات</span><strong id="revenue">₪ 0</strong></div>
-          <div><span>عدد الرؤوس المباعة</span><strong id="soldCount">0</strong></div>
-          <div><span>تكلفة الرأس الكاملة</span><strong id="costPerSheep">₪ 0</strong></div>
-          <div><span>ربح الرأس المباع</span><strong id="profitPerSheep">₪ 0</strong></div>
-          <div><span>هامش الربح على التكلفة</span><strong id="profitPercent">0%</strong></div>
+          <div><span>إجمالي مصاريف التربية</span><strong id="annualExpenses">₪ 0</strong></div>
+          <div><span>إجمالي المواليد المتوقع</span><strong id="birthCount">0</strong></div>
+          <div><span>المواليد القابلة للبيع</span><strong id="soldCount">0</strong></div>
+          <div><span>إجمالي مبيعات المواليد</span><strong id="revenue">₪ 0</strong></div>
+          <div><span>مصاريف التربية للرأس</span><strong id="costPerSheep">₪ 0</strong></div>
+          <div><span>ربح المولود بعد التكاليف</span><strong id="profitPerSheep">₪ 0</strong></div>
+          <div><span>هامش الربح</span><strong id="profitPercent">0%</strong></div>
           <div><span>متوسط الربح الشهري</span><strong id="monthlyProfit">₪ 0</strong></div>
         </div>
 
         <div class="formula">
           <strong>طريقة الحساب</strong>
-          <p>تكلفة الرأس = سعر الشراء + المصاريف السنوية للرأس</p>
-          <p>المبيعات = عدد الرؤوس الباقية × سعر البيع</p>
-          <p>صافي الربح = المبيعات − (الشراء + المصاريف السنوية)</p>
+          <p>المواليد = عدد الأمهات × متوسط المواليد لكل رأس</p>
+          <p>المواليد المباعة = المواليد × (1 − نسبة النفوق)</p>
+          <p>المبيعات = المواليد المباعة × سعر بيع المولود</p>
+          <p>صافي الربح = المبيعات − مصاريف تربية القطيع</p>
+          <p>سعر شراء القطيع الأساسي لا يدخل في صافي الربح السنوي.</p>
         </div>
       </section>
     </section>
 
-    <footer>Sheap Calculator · حاسبة ربح الأغنام · تعمل بالكامل على المتصفح بدون قاعدة بيانات أو Backend.</footer>
+    <footer>Sheep Calculator · حاسبة ربح الأغنام · تعمل بالكامل على المتصفح بدون قاعدة بيانات أو Backend.</footer>
   </main>
   <script src="app.js"></script>
   <script>if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));</script>
