@@ -1,5 +1,5 @@
 const $ = id => document.getElementById(id);
-const fields = ["sheepCount","birthsPerHead","salePrice","mortality","feed","medicine","vaccines","utilities","labor","other"];
+const fields = ["sheepCount","birthsPerHead","salePrice","feed","utilities","other"];
 
 function num(id){ return Math.max(0, Number($(id).value) || 0); }
 function money(value){
@@ -10,27 +10,24 @@ function calculate(){
   const count = num("sheepCount");
   const birthsPerHead = num("birthsPerHead");
   const salePrice = num("salePrice");
-  const mortality = Math.min(100,num("mortality"));
 
-  const annualPerHead = ["feed","medicine","vaccines","utilities","labor","other"]
-    .reduce((sum,id) => sum + num(id), 0);
+  const costPerHead = ["feed","utilities","other"].reduce(
+    (sum,id) => sum + num(id), 0
+  );
 
   const birthCount = count * birthsPerHead;
-  const soldCount = birthCount * (1 - mortality / 100);
-  const revenue = soldCount * salePrice;
-  const annualExpenses = count * annualPerHead;
+  const revenue = birthCount * salePrice;
+  const annualExpenses = count * costPerHead;
   const profit = revenue - annualExpenses;
+  const profitPerBirth = birthCount > 0 ? profit / birthCount : 0;
 
-  const profitPerSold = soldCount > 0 ? profit / soldCount : 0;
-  const profitPercent = annualExpenses > 0 ? profit / annualExpenses * 100 : 0;
-
-  $("annualExpenses").textContent = money(annualExpenses);
+  $("headCount").textContent = count.toLocaleString("ar-PS");
   $("birthCount").textContent = birthCount.toLocaleString("ar-PS",{maximumFractionDigits:1});
-  $("soldCount").textContent = soldCount.toLocaleString("ar-PS",{maximumFractionDigits:1});
+  $("salePriceResult").textContent = money(salePrice);
   $("revenue").textContent = money(revenue);
-  $("costPerSheep").textContent = money(annualPerHead);
-  $("profitPerSheep").textContent = money(profitPerSold);
-  $("profitPercent").textContent = profitPercent.toFixed(1) + "%";
+  $("costPerSheep").textContent = money(costPerHead);
+  $("annualExpenses").textContent = money(annualExpenses);
+  $("profitPerSheep").textContent = money(profitPerBirth);
   $("monthlyProfit").textContent = money(profit / 12);
   $("netProfit").textContent = money(profit);
 
@@ -38,15 +35,15 @@ function calculate(){
   if(profit > 0){
     badge.textContent = "ربح";
     badge.style.color = "var(--accent)";
-    $("profitNote").textContent = "المبيعات ناقص مصاريف تربية القطيع";
+    $("profitNote").textContent = "مبيعات المواليد ناقص مصاريف السنة";
   } else if(profit < 0){
     badge.textContent = "خسارة";
     badge.style.color = "var(--danger)";
-    $("profitNote").textContent = "مصاريف التربية أعلى من مبيعات المواليد";
+    $("profitNote").textContent = "مصاريف السنة أعلى من مبيعات المواليد";
   } else {
     badge.textContent = "تعادل";
     badge.style.color = "var(--accent-2)";
-    $("profitNote").textContent = "المبيعات تساوي مصاريف التربية";
+    $("profitNote").textContent = "المبيعات تساوي مصاريف السنة";
   }
 }
 
