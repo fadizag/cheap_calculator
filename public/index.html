@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="حاسبة ربح الأغنام السنوية">
+  <title>حاسبة ربح الأغنام</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <div class="brand-mark">🐑</div>
+      <div>
+        <p class="eyebrow">SHEAP CALCULATOR</p>
+        <h1>حاسبة ربح الأغنام</h1>
+        <p class="subtitle">احسب تكلفة القطيع، المبيعات، وصافي الربح السنوي بسهولة.</p>
+      </div>
+    </header>
+
+    <section class="grid">
+      <form id="calculatorForm" class="card form-card">
+        <div class="section-title">
+          <span>01</span>
+          <div><h2>بيانات القطيع</h2><p>أدخل أعداد وأسعار الشراء والبيع.</p></div>
+        </div>
+
+        <div class="fields two">
+          <label>عدد الرؤوس
+            <input id="sheepCount" type="number" min="1" step="1" value="28" required>
+          </label>
+          <label>سعر شراء الرأس (₪)
+            <input id="purchasePrice" type="number" min="0" step="0.01" value="1200" required>
+          </label>
+          <label>سعر بيع الرأس (₪)
+            <input id="salePrice" type="number" min="0" step="0.01" value="1500" required>
+          </label>
+          <label>نسبة النفوق (%)
+            <input id="mortality" type="number" min="0" max="100" step="0.1" value="0">
+          </label>
+        </div>
+
+        <div class="section-title compact">
+          <span>02</span>
+          <div><h2>المصاريف السنوية للرأس</h2><p>هذه المصاريف تُحسب لكل رأس سنويًا.</p></div>
+        </div>
+
+        <div class="fields two">
+          <label>علف (₪)
+            <input id="feed" type="number" min="0" step="0.01" value="0">
+          </label>
+          <label>أدوية وعلاج (₪)
+            <input id="medicine" type="number" min="0" step="0.01" value="0">
+          </label>
+          <label>لقاحات ووقاية (₪)
+            <input id="vaccines" type="number" min="0" step="0.01" value="0">
+          </label>
+          <label>ماء وكهرباء (₪)
+            <input id="utilities" type="number" min="0" step="0.01" value="0">
+          </label>
+          <label>عمالة (₪)
+            <input id="labor" type="number" min="0" step="0.01" value="0">
+          </label>
+          <label>مصاريف أخرى (₪)
+            <input id="other" type="number" min="0" step="0.01" value="0">
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="submit">احسب الربح</button>
+          <button type="button" id="resetBtn" class="secondary">إعادة ضبط</button>
+        </div>
+      </form>
+
+      <section class="card results-card" aria-live="polite">
+        <div class="result-head">
+          <div><p class="eyebrow">RESULTS</p><h2>النتيجة السنوية</h2></div>
+          <div id="statusBadge" class="badge">جاهز للحساب</div>
+        </div>
+
+        <div class="profit-box">
+          <span>صافي الربح</span>
+          <strong id="netProfit">₪ 0</strong>
+          <small id="profitNote">بعد خصم تكلفة الشراء والمصاريف السنوية</small>
+        </div>
+
+        <div class="stats">
+          <div><span>إجمالي الاستثمار</span><strong id="investment">₪ 0</strong></div>
+          <div><span>إجمالي المصاريف السنوية</span><strong id="annualExpenses">₪ 0</strong></div>
+          <div><span>إجمالي المبيعات</span><strong id="revenue">₪ 0</strong></div>
+          <div><span>عدد الرؤوس المباعة</span><strong id="soldCount">0</strong></div>
+          <div><span>تكلفة الرأس الكاملة</span><strong id="costPerSheep">₪ 0</strong></div>
+          <div><span>ربح الرأس المباع</span><strong id="profitPerSheep">₪ 0</strong></div>
+          <div><span>هامش الربح على التكلفة</span><strong id="profitPercent">0%</strong></div>
+          <div><span>متوسط الربح الشهري</span><strong id="monthlyProfit">₪ 0</strong></div>
+        </div>
+
+        <div class="formula">
+          <strong>طريقة الحساب</strong>
+          <p>تكلفة الرأس = سعر الشراء + المصاريف السنوية للرأس</p>
+          <p>المبيعات = عدد الرؤوس الباقية × سعر البيع</p>
+          <p>صافي الربح = المبيعات − (الشراء + المصاريف السنوية)</p>
+        </div>
+      </section>
+    </section>
+
+    <footer>Sheap Calculator · حاسبة ربح الأغنام · تعمل بالكامل على المتصفح بدون قاعدة بيانات أو Backend.</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
