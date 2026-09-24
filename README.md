@@ -12,3 +12,8 @@
 - Publish Directory: `./`
 
 الواجهة عربية RTL وتعمل بالكامل داخل المتصفح.
+
+
+## Cloudflare
+
+This project is configured for Cloudflare Workers Static Assets using `public/` as the asset directory.
